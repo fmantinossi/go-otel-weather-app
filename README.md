@@ -48,12 +48,10 @@ cd seu-repositorio
 
 ### 🔧 Configurar a chave da WeatherAPI
 
-Edite o `docker-compose.yml` e substitua `your_api_key_here`:
+Crie o arquivo .env e inclua a linha:
 
-```yaml
-service-b:
-  environment:
-    - WEATHER_API_KEY=sua api key
+```
+WEATHER_API_KEY=your_api_key_here
 ```
 
 ---
@@ -61,7 +59,9 @@ service-b:
 ### ▶️ Subir os serviços
 
 ```bash
-docker-compose up --build
+docker-compose down -v
+docker-compose build --no-cache
+docker-compose up
 ```
 
 ---
