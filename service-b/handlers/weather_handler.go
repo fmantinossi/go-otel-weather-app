@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"regexp"
 	"service-b/services"
@@ -42,6 +43,7 @@ func HandleWeather(w http.ResponseWriter, r *http.Request) {
 
 	tempC, err := services.GetTemperatureByCity(r.Context(), city)
 	if err != nil {
+		log.Printf("erro ao obter temperatura: %v", err)
 		http.Error(w, "failed to get temperature", http.StatusInternalServerError)
 		return
 	}

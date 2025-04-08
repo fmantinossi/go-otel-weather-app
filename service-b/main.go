@@ -7,9 +7,15 @@ import (
 
 	"service-b/handlers"
 	"service-b/otel"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("Warning: .env not found, following with environment variables")
+	}
+
 	shutdown := otel.InitTracer("service-b")
 	defer shutdown(context.Background())
 

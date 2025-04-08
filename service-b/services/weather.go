@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"net/url"
 	"os"
 
 	"go.opentelemetry.io/otel"
@@ -26,7 +28,7 @@ func GetTemperatureByCity(ctx context.Context, city string) (float64, error) {
 	ctx, span := tr.Start(ctx, "WeatherAPI Lookup")
 	defer span.End()
 
-	url := fmt.Sprintf("https://api.weatherapi.com/v1/current.json?key=%s&q=%s", apiKey, city)
+	url := fmt.Sprintf("https://api.weatherapi.com/v1/current.json?key=%s&q=%s", apiKey, url.QueryEscape(city))
 	resp, err := http.Get(url)
 	if err != nil {
 		return 0, fmt.Errorf("failed to call WeatherAPI: %w", err)
@@ -34,7 +36,8 @@ func GetTemperatureByCity(ctx context.Context, city string) (float64, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return 0, fmt.Errorf("weatherapi returned status: %d", resp.StatusCode)
+		body, _ := io.ReadAll(resp.Body)
+		return 0, fmt.Errorf("weatherapi returned status %d: %s", resp.StatusCode, string(body))
 	}
 
 	var data WeatherAPIResponse

@@ -12,10 +12,12 @@ services:
 
   service-b:
     build: ./service-b
+    env_file:
+      - .env
     ports:
       - "8081:8081"
     environment:
-      - WEATHER_API_KEY=f2c9ca7e8eec4a2b901190619252003
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
     depends_on:
       - otel-collector

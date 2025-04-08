@@ -3,6 +3,7 @@ module service-b
 go 1.24.1
 
 require (
+	github.com/joho/godotenv v1.5.1
 	go.opentelemetry.io/otel v1.35.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.35.0
 	go.opentelemetry.io/otel/sdk v1.35.0
