@@ -53,7 +53,7 @@ Edite o `docker-compose.yml` e substitua `your_api_key_here`:
 ```yaml
 service-b:
   environment:
-    - WEATHER_API_KEY=f2c9ca7e8eec4a2b901190619252003
+    - WEATHER_API_KEY=sua api key
 ```
 
 ---
@@ -171,7 +171,7 @@ cd service-b && go run main.go
 
 ```bash
 export SERVICE_B_URL=http://localhost:8081
-export WEATHER_API_KEY=f2c9ca7e8eec4a2b901190619252003
+export WEATHER_API_KEY=sua api key
 export OTEL_EXPORTER_OTLP_ENDPOINT=localhost:4317
 ```
 
